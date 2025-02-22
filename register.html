@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Tournament</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            width: 40%;
+            margin: 5% auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            color: #ffcc00;
+        }
+        input, button {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+        }
+        input {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        button {
+            background: #ff4500;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff6600;
+        }
+        #paymentDetails {
+            display: none;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        #paymentDetails img {
+            max-width: 200px;
+            margin: 10px auto;
+            display: block;
+        }
+        #paymentDetails p {
+            margin: 5px 0;
+        }
+        #paymentDetails button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #paymentDetails button:hover {
+            background-color: #3e8e41;
+        }
+
+        /* Media Query for Mobile Devices */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%; /* Make the container wider on mobile */
+                margin: 10% auto; /* Adjust margin for better fit */
+                padding: 20px; /* Reduce padding for smaller screens */
+            }
+            input, button {
+                width: 95%; /* Make input fields and buttons wider */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Free Fire Tournament Registration</h1>
+        <form id="registrationForm">
+            <input type="text" id="teamName" placeholder="Team Name" required>
+            <input type="text" id="teamLeaderName" placeholder="Team Leader Name" required>
+            <input type="text" id="player1" placeholder="Player 1 UID" required>
+            <input type="text" id="player2" placeholder="Player 2 UID" required>
+            <input type="text" id="player3" placeholder="Player 3 UID" required>
+            <input type="text" id="player4" placeholder="Player 4 UID" required>
+            <input type="text" id="leaderPhone" placeholder="Team Leader Phone Number" required>
+            <button type="button" id="paymentButton">Entry Fee ₹50</button>
+            <div id="paymentDetails">
+                <p>GPAY Number: 6379653737</p>
+                <p>UPI ID: dsdineshkumar244@okaxis</p>
+                <img src="upi_qr.JPG" alt="UPI QR Code">
+                <button type="button" onclick="openWhatsAppUpload()">Upload Screenshot to WhatsApp</button>
+            </div>
+            <button type="button" onclick="sendToWhatsApp()">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("paymentButton").addEventListener("click", function() {
+            document.getElementById("paymentDetails").style.display = "block";
+        });
+
+        function openWhatsAppUpload() {
+            let whatsappNumber = "916381826749";
+            let whatsappLink = `https://wa.me/${whatsappNumber}`;
+            window.open(whatsappLink, "_blank");
+        }
+
+        function sendToWhatsApp() {
+            let teamName = document.getElementById("teamName").value;
+            let teamLeaderName = document.getElementById("teamLeaderName").value;
+            let player1 = document.getElementById("player1").value;
+            let player2 = document.getElementById("player2").value;
+            let player3 = document.getElementById("player3").value;
+            let player4 = document.getElementById("player4").value;
+            let leaderPhone = document.getElementById("leaderPhone").value;
+
+            if (!teamName || !teamLeaderName || !player1 || !player2 || !player3 || !player4 || !leaderPhone) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            let today = new Date();
+            let date = today.getFullYear() + "-" +
+                ("0" + (today.getMonth() + 1)).slice(-2) + "-" +
+                ("0" + today.getDate()).slice(-2);
+
+            let message = `🔥 Free Fire Tournament Registration 🔥\n\n` +
+                `📅 Registration Date: ${date}\n` +
+                `🏆 Team Name: ${teamName}\n` +
+                `👤 Team Leader: ${teamLeaderName}\n` +
+                `🎮 Player 1 UID: ${player1}\n` +
+                `🎮 Player 2 UID: ${player2}\n` +
+                `🎮 Player 3 UID: ${player3}\n` +
+                `🎮 Player 4 UID: ${player4}\n` +
+                `📞 Team Leader Phone: ${leaderPhone}`;
+
+            let encodedMessage = encodeURIComponent(message);
+            let whatsappNumber = "916381826749";
+
+            let whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappLink, "_blank");
+
+            setTimeout(() => {
+                window.location.href = "success.html";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
